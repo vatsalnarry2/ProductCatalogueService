@@ -31,7 +31,7 @@ public class FakeStoreApiClient {
     }
 
     public FakeStoreProductDto getProductById(Long productId) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
+        
         ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoEntity = requestForEntity("https://fakestoreapi.com/products/{productId}",HttpMethod.GET,null, FakeStoreProductDto.class, productId);
         return validateFakeStoreResponse(fakeStoreProductDtoEntity);
 

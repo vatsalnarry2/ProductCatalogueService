@@ -32,13 +32,19 @@ public class ProductController {
     }
     @GetMapping("{productId}")
     public ResponseEntity<ProductDto> findProductById(@PathVariable Long productId){
-        if(productId<=0)
-            return new ResponseEntity<>(null,HttpStatus.valueOf(404));
-        Product product=productService.getProductById(productId);
-        if(product==null)
-            return new ResponseEntity<>(null,HttpStatus.valueOf(400));
+    	try {
+    		  if(productId<=0)
+    	            throw  new IllegalArgumentException("Please try with productid >0");
+    	        Product product=productService.getProductById(productId);
+    	        if(product==null)
+    	            return new ResponseEntity<>(null,HttpStatus.valueOf(400));
 
-        return new ResponseEntity<>(from(product), HttpStatus.OK);
+    	        return new ResponseEntity<>(from(product), HttpStatus.OK);
+		} catch (Exception e) {
+			throw e;
+		}
+	
+      
     }
     @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
@@ -90,5 +96,6 @@ public class ProductController {
         }
         return product;
     }
+
 
 }
