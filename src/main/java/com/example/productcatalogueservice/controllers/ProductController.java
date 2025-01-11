@@ -18,7 +18,10 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private IProductService productService;
+    private IProductService productService1;
+    
+    @Autowired
+    private IProductService productService2;
 
     @GetMapping
     public List<Product> getAllProducts(){
@@ -35,7 +38,7 @@ public class ProductController {
     	try {
     		  if(productId<=0)
     	            throw  new IllegalArgumentException("Please try with productid >0");
-    	        Product product=productService.getProductById(productId);
+    	        Product product=productService1.getProductById(productId);
     	        if(product==null)
     	            return new ResponseEntity<>(null,HttpStatus.valueOf(400));
 
@@ -57,7 +60,7 @@ public class ProductController {
     public ProductDto  replaceProduct(@PathVariable Long productId,@RequestBody ProductDto request){
 
         Product productRequest = from(request);
-        Product product  = productService.replaceProduct(productId,productRequest);
+        Product product  = productService2.replaceProduct(productId,productRequest);
         return  from(product);
 
     }
